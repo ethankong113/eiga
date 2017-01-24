@@ -22,4 +22,4 @@ bundle.js.map
 .byebug_history
 .DS_Store
 npm-debug.log
-frontend/utils/secrets.js
+# frontend/utils/secrets.js
