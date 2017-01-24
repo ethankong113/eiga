@@ -7,7 +7,6 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node server/bin/www",
     "test": "mocha --compilers js:babel-core/register --require ./frontend_test/test_helper.js --recursive ./frontend_test",
     "test:watch": "npm run test -- --watch",
     "postinstall": "./node_modules/.bin/webpack"
