@@ -148,7 +148,7 @@ class Panel extends React.Component {
     const {height, width} = opts;
     return (
       <div className='video-overlay'
-        style={{height, width}}
+        style={{height: `${height}px`, width: `${width}px`}}
         tabIndex="-1"
         onClick={this.addNote}
         onKeyPress={this.changeVideoStatus}>
