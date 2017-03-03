@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
+import ShareBar from '../share_bar/share_bar';
 import { createNoteProps, createPinStyle, btnFieldStyle, btnStyle } from './panel_styles';
 
 class Panel extends React.Component {
@@ -77,7 +78,7 @@ class Panel extends React.Component {
     const {noteText} = this.state;
     const posY = e.pageY - $('.video-overlay').offset().top;
     const posX = e.pageX - $('.video-overlay').offset().left;
-    const newTextarea = (() => (
+    const newTextarea = (
       <TextField
       floatingLabelText="Write a comment"
       multiLine={true}
@@ -86,31 +87,32 @@ class Panel extends React.Component {
       fullWidth={true}
       defaultValue={noteText}
       onChange={this.update("noteText")}
-      />))();
-    const newPin = (() => (
+      />);
+
+    const newPin = (
       <Paper
       style={createPinStyle(posY, posX)}
       zDepth={4}
       circle={true} />
-    ))();
+    );
 
-    const newPrimaryBtn = (() => (
+    const newPrimaryBtn = (
       <RaisedButton
       label='Add Note'
       primary={true}
       style={btnStyle}
       onClick={this.createNote}/>
-    ))();
+    );
 
-    const newSecondaryBtn = (() => (
+    const newSecondaryBtn = (
       <RaisedButton
       label='Cancel'
       secondary={true}
       style={btnStyle}
       onClick={this.cancelNote}/>
-    ))();
+    );
 
-    const newSlider = (() => (
+    const newSlider = (
       <Slider
       step={1}
       min={2}
@@ -118,12 +120,17 @@ class Panel extends React.Component {
       value={this.state.sliderValue}
       onChange={this.handleSlider}
       />
-    ))();
+    );
 
     const newBtnField = React.createElement('div', {style: btnFieldStyle}, newPrimaryBtn, newSecondaryBtn);
     const newNoteBtn = React.createElement('button', null);
-    const newNote = React.createElement('div', createNoteProps(posY, posX), newTextarea, newSlider, newBtnField);
-    this.setState({newPin, newNote});
+    const newNote = React.createElement('div', createNoteProps(posY, posX), newTextarea, newBtnField);
+    // uncomment the following line when we need slider.
+    // const newNote = React.createElement('div', createNoteProps(posY, posX), newTextarea, newSlider, newBtnField);
+    this.pin = newPin;
+    this.note = newNote;
+    this.pos = {y: posY, x: posX};
+    this.setState({newPin: true, newNote: true});
   }
 
   update(field) {
@@ -137,18 +144,25 @@ class Panel extends React.Component {
   }
 
   createNote() {
-    this.setState({newPin: null, newNote: null, noteText: ""});
+    const {createComment, book} = this.props;
+    const body = this.state.noteText,
+          time = this.videoTarget.getCurrentTime(),
+          url = book.url,
+          {x, y} = this.pos;
+    const comment = {body, time, url, pos_x: x, pos_y: y};
+    createComment(comment);
+    this.setState({newPin: false, newNote: false, noteText: ""});
   }
 
   cancelNote() {
-    this.setState({newPin: null, newNote: null});
+    this.setState({newPin: false, newNote: false});
   }
 
   renderOverlay(opts) {
     const {height, width} = opts;
     return (
       <div className='video-overlay'
-        style={{height, width}}
+        style={{height: `${height}px`, width: `${width}px`}}
         tabIndex="-1"
         onClick={this.addNote}
         onKeyPress={this.changeVideoStatus}>
@@ -167,12 +181,15 @@ class Panel extends React.Component {
       }
     };
     return (
-    <div className="video-frame">
-      {this.renderVideo(book, opts)}
-      {this.renderOverlay(opts)}
-      {newPin}
-      {newNote}
-    </div>
+      <div>
+        <div className="video-frame">
+          {this.renderVideo(book, opts)}
+          {this.renderOverlay(opts)}
+          {newPin ? this.pin : null}
+          {newNote ? this.note : null}
+        </div>
+        <ShareBar url="www.google.com" />
+      </div>
     );
   }
 }

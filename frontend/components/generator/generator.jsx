@@ -72,7 +72,6 @@ class Generator extends React.Component {
              hintText={textField.hint}
              floatingLabelText={textField.label}
              defaultValue={source}
-             theme='dark'
              fullWidth
              onChange={this.update("source")}
              />

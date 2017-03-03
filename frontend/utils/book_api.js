@@ -11,7 +11,7 @@ export const createBookAJAX = (source, success, error) => {
 export const fetchBookAJAX = (url, success, error) => {
   $.ajax({
      type: 'GET',
-     url: `api/book/${url}`,
+     url: `api/books/${url}`,
      success,
      error
    });

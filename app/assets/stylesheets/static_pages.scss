@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 $blackColor: #212121;
+$charcoal: #36454F;
+$darkBlue: #303F9F;
+
+@mixin no-select {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
 
 html, body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: lighten($blackColor, 8%);
 }
 
 h1, h2, h3 {
@@ -58,6 +68,50 @@ textarea {
     top: 0;
     &:focus {
       outline: none;
+    }
+  }
+}
+
+.share-bar {
+  margin-left: 20px;
+}
+
+.main-control {
+  display: flex;
+  justify-content: space-around;
+}
+
+.comment-table {
+  width: 100%;
+  .table-body {
+    background-color: lighten($blackColor, 8%);
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+  }
+}
+
+.comment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+  padding: 5px 10px;
+  background-color: $blackColor;
+  border: 2px solid $darkBlue;
+  color: $darkBlue;
+
+  .table-body {
+
+  }
+  .play-btn {
+    margin-right: 10px;
+    i {
+      @include no-select;
+      font-size: 48px;
+      color: white;
+      cursor: pointer;
     }
   }
 }
