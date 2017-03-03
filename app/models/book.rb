@@ -3,14 +3,16 @@ class Book < ApplicationRecord
   validates :url, uniqueness: true
   after_initialize :create_url, :ensure_type, :ensure_user_id
 
-  has_many :notes
+  has_many :comments
 
   def create_url
-    new_url = Book.generate_random_url
-    until Book.find_by_url(new_url).nil?
+    if self.url.nil? || self.url == ""
       new_url = Book.generate_random_url
+      until Book.find_by_url(new_url).nil?
+        new_url = Book.generate_random_url
+      end
+      self.url = new_url
     end
-    self.url = new_url
   end
 
   def ensure_type
