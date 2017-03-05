@@ -8,7 +8,8 @@ export const createNoteProps = (top, left) => ({
     width: '300px',
     border: '3px solid #303F9F',
     backgroundColor: '#212121',
-    padding: '14px'
+    padding: '14px',
+    zIndex: 2
   }
 });
 export const createPinStyle = (top, left) => ({

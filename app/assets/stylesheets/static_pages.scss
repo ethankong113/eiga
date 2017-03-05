@@ -29,6 +29,11 @@ textarea {
   resize: vertical;
 }
 
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
 .home-page {
   color: $blackColor;
   .header-title {
@@ -72,6 +77,11 @@ textarea {
   }
 }
 
+.btn-field {
+  display: flex;
+  justify-content: space-around;
+}
+
 .share-bar {
   margin-left: 20px;
 }
@@ -88,6 +98,24 @@ textarea {
     height: 400px;
     width: 100%;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+      padding: 0px;
+      margin: 0px;
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+      background-color: $blackColor;
+      // -webkit-border-radius: 10px;
+      // border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      // -webkit-border-radius: 10px;
+      // border-radius: 10px;
+      background: $darkBlue;
+      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+    }
   }
 }
 
@@ -101,17 +129,45 @@ textarea {
   background-color: $blackColor;
   border: 2px solid $darkBlue;
   color: $darkBlue;
-
-  .table-body {
-
+  .comment-body {
+    .comment-options {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 14px;
+      span {
+        margin: 0px 5px;
+      }
+      .hidden-options {
+        color: lightgray;
+        cursor: pointer;
+        visibility: hidden;
+      }
+    }
   }
   .play-btn {
     margin-right: 10px;
     i {
       @include no-select;
       font-size: 48px;
-      color: white;
+      color: lightgray;
       cursor: pointer;
     }
   }
+  &:hover {
+    .comment-body {
+      .comment-options {
+        .hidden-options {
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
+.video-overlay {
+  border: dashed white 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }

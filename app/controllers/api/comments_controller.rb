@@ -22,8 +22,30 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(body: params[:body])
+      render 'api/comments/show'
+    else
+      render json: @comment.errors.full_messages, status: 400
+    end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.delete
+      render 'api/comments/show'
+    else
+      render json: @comment.errors.full_messages, status: 400
+    end
+  end
+
   def comment_params
     params.require(:comment).permit(:body, :time, :pos_x, :pos_y)
+  end
+
+  def updated_params
+    params.require(:comment).permit(:body)
   end
 
   def book_url

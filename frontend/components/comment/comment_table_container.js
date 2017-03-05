@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
    getAllComments: url => {dispatch(getAllComments(url));},
-   updateComment: comment => {dispatch(updateComment(comment));},
+   updateComment: (commentId, body) => {dispatch(updateComment(commentId, body));},
    deleteComment: commentId => {dispatch(deleteComment(commentId));}
 });
 
