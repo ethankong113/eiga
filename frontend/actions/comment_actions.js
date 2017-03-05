@@ -12,8 +12,9 @@ export const createComment = comment => ({
   type: CREATE_COMMENT
 });
 
-export const updateComment = comment => ({
-  comment,
+export const updateComment = (commentId, body) => ({
+  commentId,
+  body,
   type: UPDATE_COMMENT
 });
 
@@ -42,7 +43,7 @@ export const renewComment = comment => ({
   type: RENEW_COMMENT
 });
 
-export const removeComment = commentId => ({
-  commentId,
+export const removeComment = comment => ({
+  comment,
   type: REMOVE_COMMENT
 });

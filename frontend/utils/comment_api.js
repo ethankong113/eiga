@@ -8,11 +8,11 @@ export const createCommentAJAX = (comment, success, error) => {
    });
 };
 
-export const updateCommentAJAX = (comment, success, error) => {
+export const updateCommentAJAX = (commentId, body, success, error) => {
   $.ajax({
      type: 'PUT',
-     url: `api/comments/${comment.id}`,
-     data: {comment},
+     url: `api/comments/${commentId}`,
+     data: {body},
      success,
      error
    });

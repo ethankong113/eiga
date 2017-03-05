@@ -6,7 +6,7 @@ const CommentMiddleware = ({getState, dispatch}) => next => action => {
   const getAllCommentsCB = comments => {dispatch(receiveAllComments(comments));};
   const createCommentCB = comment => {dispatch(receiveComment(comment));};
   const updateCommentCB = comment => {dispatch(renewComment(comment));};
-  const deleteCommentCB = commentId => {dispatch(removeComment(commentId));};
+  const deleteCommentCB = comment => {dispatch(removeComment(comment));};
   const errorCB = err => {console.log(err);};
 
   switch(action.type) {
@@ -17,7 +17,7 @@ const CommentMiddleware = ({getState, dispatch}) => next => action => {
       createCommentAJAX(action.comment, createCommentCB, errorCB);
       return next(action);
     case UPDATE_COMMENT:
-      updateCommentAJAX(action.comment, updateCommentCB, errorCB);
+      updateCommentAJAX(action.commentId, action.body, updateCommentCB, errorCB);
       return next(action);
     case DELETE_COMMENT:
       deleteCommentAJAX(action.commentId, deleteCommentCB, errorCB);
