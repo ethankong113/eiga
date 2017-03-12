@@ -5,7 +5,7 @@ const HomePage = (props) => {
   return (
     <div className="home-page">
       <div className="welcome-section">
-        <img className="cover-img" src="assets/home_banner.jpeg" />
+        <img className="cover-img" src="https://res.cloudinary.com/dmvxkwwde/image/upload/v1489296989/eiga/assets/pexels-photo-321111.jpg" />
         <div className="generator-frame">
           <h1 className="header-title">Welcome to Eiga!</h1>
           <GeneratorContainer />
