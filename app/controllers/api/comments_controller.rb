@@ -5,7 +5,7 @@ class Api::CommentsController < ApplicationController
     if @comments
       render 'api/comments/index'
     else
-      render json: ["Could not find matching "], status: 400
+      render json: ["Could not find matching "], status: 422
     end
   end
 
@@ -16,9 +16,9 @@ class Api::CommentsController < ApplicationController
     if @comment.save
       render 'api/comments/show'
     elsif @book.nil?
-      render json: ["Could not find matching book"], status: 400
+      render json: ["Could not find matching book"], status: 422
     else
-      render json: @comment.errors.full_messages, status: 400
+      render json: @comment.errors.full_messages, status: 422
     end
   end
 
@@ -27,7 +27,7 @@ class Api::CommentsController < ApplicationController
     if @comment.update(body: params[:body])
       render 'api/comments/show'
     else
-      render json: @comment.errors.full_messages, status: 400
+      render json: @comment.errors.full_messages, status: 422
     end
   end
 
@@ -36,7 +36,7 @@ class Api::CommentsController < ApplicationController
     if @comment.delete
       render 'api/comments/show'
     else
-      render json: @comment.errors.full_messages, status: 400
+      render json: @comment.errors.full_messages, status: 422
     end
   end
 
