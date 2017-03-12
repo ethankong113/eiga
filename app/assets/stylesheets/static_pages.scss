@@ -36,17 +36,30 @@ p {
 
 .home-page {
   color: $blackColor;
-  .header-title {
-    margin: 20px 0px;
-    text-align: center;
-    font-size: 36px;
-    color: white;
-  }
-
-  .header-intro {
-    margin: 20px 0px;
-    text-align: center;
-    font-size: 24px;
+  .welcome-section {
+    position: relative;
+    .cover-img {
+      width: 100%;
+      height: auto;
+    }
+    .generator-frame {
+      position: absolute;
+      top: 10%;
+      left: 0%;
+      right: 0%;
+      .header-title {
+        display: block;
+        margin: 20px 0px;
+        text-align: center;
+        font-size: 80px;
+        color: white;
+      }
+      .header-intro {
+        margin: 20px 0px;
+        text-align: center;
+        font-size: 24px;
+      }
+    }
   }
 }
 

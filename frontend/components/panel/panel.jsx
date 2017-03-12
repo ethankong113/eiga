@@ -22,6 +22,7 @@ class Panel extends React.Component {
     this.handleOverlay = this.handleOverlay.bind(this);
     this.handleSnackbar = this.handleSnackbar.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
   }
 
   componentWillMount() {
@@ -51,6 +52,7 @@ class Panel extends React.Component {
           videoId={book.source}
           opts={opts}
           onReady={videoReady}
+          onStateChange={this.handleStateChange}
           />
       );
     }
@@ -138,6 +140,11 @@ class Panel extends React.Component {
     });
   }
 
+  handleStateChange(e) {
+    this.props.videoStateChange(e);
+    this.setState(this.state);
+  }
+
   createNote() {
     const {getVideoTime, createComment, book, playVideo, getVideoStatus} = this.props;
     const body = this.state.noteText,
@@ -168,12 +175,14 @@ class Panel extends React.Component {
   renderOverlay(opts) {
     const {height, width} = opts;
     const {overlay} = this.state;
+    const overlayStyle = {
+            height: `${height}px`,
+            width: `${width}px`,
+            display: `${overlay ? 'block' : 'none'}`
+          };
     return (
       <div className='video-overlay'
-        style={{height: `${height}px`,
-                width: `${width}px`,
-                display: `${overlay ? 'block' : 'none'}`
-              }}
+        style={overlayStyle}
         tabIndex="-1"
         onClick={this.addNote}
         onKeyPress={this.changeVideoStatus}>

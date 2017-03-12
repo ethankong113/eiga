@@ -4,6 +4,7 @@ import YoutubeFrame from 'react-youtube';
 import PanelContainer from '../panel/panel_container';
 import CommentTableContainer from '../comment/comment_table_container';
 import { isNull } from 'lodash';
+import { playerStates } from '../../utils/settings';
 
 class BookPage extends React.Component {
 
@@ -13,6 +14,7 @@ class BookPage extends React.Component {
     this.videoStatus = 'loading'; //loading, ready, playing, paused, error
     this.playVideo = this.playVideo.bind(this);
     this.videoReady = this.videoReady.bind(this);
+    this.videoStateChange = this.videoStateChange.bind(this);
     this.seekTo = this.seekTo.bind(this);
     this.getVideoTime = this.getVideoTime.bind(this);
     this.getVideoStatus = this.getVideoStatus.bind(this);
@@ -32,6 +34,10 @@ class BookPage extends React.Component {
   videoReady(e) {
     this.videoStatus = 'ready';
     this.videoTarget = e.target;
+  }
+
+  videoStateChange(e) {
+    this.videoStatus = playerStates[e.target.getPlayerState()];
   }
 
   seekTo(time) {
@@ -68,7 +74,7 @@ class BookPage extends React.Component {
 
   render() {
     const {url} = this.props.params;
-    const {playVideo, videoReady, getVideoTime, getVideoStatus, seekTo} = this;
+    const {playVideo, videoReady, videoStateChange, getVideoTime, getVideoStatus, seekTo} = this;
     return (
       <div className="book-page">
         <div className="main-control">
@@ -76,6 +82,8 @@ class BookPage extends React.Component {
             url={url}
             playVideo={playVideo}
             videoReady={videoReady}
+            videoStateChange={videoStateChange}
+            videoStatus={this.videoStatus}
             getVideoStatus={getVideoStatus}
             getVideoTime={getVideoTime}/>
           <CommentTableContainer
